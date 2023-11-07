@@ -40,7 +40,7 @@ namespace ADOForm
         private void Form1_Load(object sender, EventArgs e)
         {
             // danh sach san pham
-            dataGridView1.DataSource = CtrlSanpham.Select();
+            dgvSanPham.DataSource = CtrlSanpham.Select();
 
             // cbo danh muc
             danhmuc.DataSource = CtrlDanhmuc.Select();
