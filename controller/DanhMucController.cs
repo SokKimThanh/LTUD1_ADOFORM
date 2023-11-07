@@ -1,4 +1,5 @@
 ﻿using ADOForm.Connection;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,6 +23,16 @@ namespace ADOForm
             throw new NotImplementedException();
         }
 
+        public override object FromDataRow(DataRow row)
+        {
+            return new DanhMuc()
+            {
+                Ma = row.Field<string>("ma")!,
+                Ten = row.Field<string>("ten")!,
+                Ghichu = row.Field<string>("ghichu")!
+            };
+        }
+
         public override void Insert(object sender)
         {
             throw new NotImplementedException();
@@ -42,13 +53,13 @@ namespace ADOForm
                 Adapter = new SqlDataAdapter(Sql);
 
                 // Tạo một đối tượng Database để lưu trữ dữ liệu
-                Listgridview = new DataTable();
+                DataSource = new DataTable();
 
                 // đổ dữ liệu vào DataTable
-                Adapter.Fill(Listgridview);
+                Adapter.Fill(DataSource);
 
                 //đóng kết nối
-                CloseConnection();
+                //CloseConnection();
             }
             catch (Exception ex)
             {
@@ -76,21 +87,22 @@ namespace ADOForm
             Adapter = new SqlDataAdapter(Sql);
 
             // Tạo một đối tượng DataTable để lưu trữ dữ liệu
-            Listgridview = new DataTable();
+            DataSource = new DataTable();
 
             // Đổ dữ liệu vào DataTable
-            Adapter.Fill(Listgridview);
+            Adapter.Fill(DataSource);
 
             // Đóng kết nối
             CloseConnection();
 
             // Trả về DataTable
-            return Listgridview;
+            return DataSource;
         }
 
         public override void Update(object sender)
         {
             throw new NotImplementedException();
         }
+
     }
 }

@@ -18,7 +18,7 @@ namespace ADOForm.Connection
         /// <summary>
         /// Đây là một chiến lược tốt để quản lý kết nối cơ sở dữ liệu. Bằng cách đặt nó như một thành viên bảo vệ, các lớp kế thừa có thể sử dụng nó để mở và đóng kết nối.
         /// </summary>
-        protected DatabaseConnection dbConnection;
+        private DatabaseConnection dbConnection;
         /// <summary>
         /// Property này cho phép bạn truy cập và chỉnh sửa listgridview từ các lớp kế thừa. Điều này có thể hữu ích nếu bạn muốn hiển thị dữ liệu từ cơ sở dữ liệu lên giao diện người dùng.
         /// </summary>
@@ -47,6 +47,7 @@ namespace ADOForm.Connection
         {
             dbConnection.CloseConnection();
         }
+
         /// <summary>
         /// Đây là một chiến lược tốt để quản lý kết nối cơ sở dữ liệu. Bằng cách đặt nó như một thành viên bảo vệ, các lớp kế thừa có thể sử dụng nó để mở và đóng kết nối.
         /// </summary>
@@ -54,7 +55,7 @@ namespace ADOForm.Connection
         /// <summary>
         /// Property này cho phép bạn truy cập và chỉnh sửa listgridview từ các lớp kế thừa. Điều này có thể hữu ích nếu bạn muốn hiển thị dữ liệu từ cơ sở dữ liệu lên giao diện người dùng.
         /// </summary>
-        public DataTable Listgridview { get => listgridview; set => listgridview = value; }
+        public DataTable DataSource { get => listgridview; set => listgridview = value; }
         /// <summary>
         /// SqlDataAdapter là một đối tượng bridge giữa DataSet và SQL Server để lấy dữ liệu và lưu dữ liệu. SqlDataAdapter hoạt động với SqlCommand để lấy dữ liệu từ cơ sở dữ liệu và đổ vào DataSet. Khi bạn thực hiện các thao tác Cập nhật hoặc Xóa trên dữ liệu trong DataSet thì SqlDataAdapter sẽ thực hiện việc cập nhật này lên cơ sở dữ liệu. Property Adapter cho phép bạn truy cập và chỉnh sửa adapter từ các lớp kế thừa.
         /// </summary>
@@ -77,6 +78,10 @@ namespace ADOForm.Connection
 
 
         public abstract void Update(object sender);
+
+
+        public abstract object FromDataRow(DataRow row);
+        
     }
 
 }

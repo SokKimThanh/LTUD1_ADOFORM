@@ -39,5 +39,11 @@ namespace ADOForm.Connection
         /// <param name="id">Mã</param>
         /// <returns>Trả về một đối tượng của một lớp</returns>
         public DataTable SelectByID(object id);
+        /// <summary>
+        /// là một phương thức của DBController mà bạn có thể sử dụng để chuyển đổi một DataRow thành một đối tượng User. Bạn chỉ cần truyền vào một DataRow và nó sẽ trả về một đối tượng User tương ứng.
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        public object FromDataRow(DataRow row);
     }
 }

@@ -17,6 +17,16 @@ namespace ADOForm
             throw new NotImplementedException();
         }
 
+        public override object FromDataRow(DataRow row)
+        {
+            return new NhaCungCap()
+            {
+                Ma = row.Field<string>("ma")!,
+                Ten = row.Field<string>("ten")!,
+                Ghichu = row.Field<string>("ghichu")!
+            };
+        }
+
         public override void Insert(object sender)
         {
             throw new NotImplementedException();
@@ -29,15 +39,21 @@ namespace ADOForm
                 // Mở kết nối
                 SqlConnection conn = OpenConnection();
 
-
-                // Thực hiện các thao tác trên cơ sở dữ liệu tại đây
-                Sql = new SqlCommand();
-                Sql.Connection = conn;
-                Sql.CommandText = "sp_nhacungcap_select_all";
+                // thực hiện các thao tác trên cơ sở dữ liệu
+                Sql = new SqlCommand("sp_nhacungcap_select_all", conn);
                 Sql.CommandType = CommandType.StoredProcedure;
+
+                // Tạo đối tượng SqlDataAdapter
                 Adapter = new SqlDataAdapter(Sql);
-                Adapter.Fill(Listgridview);
-                CloseConnection();
+
+                // Tạo một đối tượng Database để lưu trữ dữ liệu
+                DataSource = new DataTable();
+
+                // đổ dữ liệu vào DataTable
+                Adapter.Fill(DataSource);
+
+                //đóng kết nối
+                //CloseConnection();
             }
             catch (Exception ex)
             {
@@ -70,10 +86,10 @@ namespace ADOForm
 
 
                 Adapter = new SqlDataAdapter(Sql);
-                Adapter.Fill(Listgridview);
+                Adapter.Fill(DataSource);
 
 
-                dbConnection.CloseConnection();
+                 CloseConnection();
             }
             catch (Exception ex)
             {
@@ -83,7 +99,7 @@ namespace ADOForm
             {
                 CloseConnection();
             }
-            return Listgridview;
+            return DataSource;
         }
 
         public override void Update(object sender)

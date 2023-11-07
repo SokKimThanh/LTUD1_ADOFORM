@@ -39,6 +39,16 @@ namespace ADOForm.controller
             CloseConnection();
         }
 
+        public override object FromDataRow(DataRow row)
+        {
+            return new UserAdo()
+            {
+                Username = row.Field<string>("username")!,
+                Password = row.Field<string>("password")!,
+                CreatedDate = row.Field<DateTime>("createdDate")!
+            };
+        }
+
         public override void Insert(object sender)
         {
             UserAdo user = (UserAdo)sender;
@@ -74,10 +84,10 @@ namespace ADOForm.controller
             Adapter = new SqlDataAdapter(Sql);
 
             // Tạo một đối tượng DataTable để lưu trữ dữ liệu
-            Listgridview = new DataTable();
+            DataSource = new DataTable();
 
             // Đổ dữ liệu vào DataTable
-            Adapter.Fill(Listgridview);
+            Adapter.Fill(DataSource);
 
             // Đóng kết nối
             CloseConnection();
@@ -99,16 +109,16 @@ namespace ADOForm.controller
             Adapter = new SqlDataAdapter(Sql);
 
             // Tạo một đối tượng DataTable để lưu trữ dữ liệu
-            Listgridview = new DataTable();
+            DataSource = new DataTable();
 
             // Đổ dữ liệu vào DataTable
-            Adapter.Fill(Listgridview);
+            Adapter.Fill(DataSource);
 
             // Đóng kết nối
             CloseConnection();
 
             // Trả về DataTable
-            return Listgridview;
+            return DataSource;
         }
 
         public override void Update(object sender)
