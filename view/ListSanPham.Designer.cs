@@ -33,16 +33,16 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
             tableLayoutPanel2 = new TableLayoutPanel();
-            nhacungcap = new ComboBox();
+            cbonhacungcap = new ComboBox();
             label5 = new Label();
-            danhmuc = new ComboBox();
-            soluong = new NumericUpDown();
+            cbodanhmuc = new ComboBox();
+            txtSoLuong = new NumericUpDown();
             label4 = new Label();
-            gia = new NumericUpDown();
+            txtDonGia = new NumericUpDown();
             label3 = new Label();
-            ten = new TextBox();
+            txtTenSP = new TextBox();
             label2 = new Label();
-            ma = new TextBox();
+            txtMaSP = new TextBox();
             label6 = new Label();
             label1 = new Label();
             groupBox2 = new GroupBox();
@@ -56,8 +56,8 @@
             tableLayoutPanel1.SuspendLayout();
             groupBox1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)soluong).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)gia).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtSoLuong).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtDonGia).BeginInit();
             groupBox2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
@@ -87,7 +87,7 @@
             btnxoa.TabIndex = 0;
             btnxoa.Text = "xoa";
             btnxoa.UseVisualStyleBackColor = true;
-            btnxoa.Click += button1_Click;
+            btnxoa.Click += Insert_click;
             // 
             // tableLayoutPanel1
             // 
@@ -119,17 +119,17 @@
             // 
             tableLayoutPanel2.ColumnCount = 2;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.6860466F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 68.31396F));
-            tableLayoutPanel2.Controls.Add(nhacungcap, 1, 5);
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 68.31395F));
+            tableLayoutPanel2.Controls.Add(cbonhacungcap, 1, 5);
             tableLayoutPanel2.Controls.Add(label5, 0, 4);
-            tableLayoutPanel2.Controls.Add(danhmuc, 1, 4);
-            tableLayoutPanel2.Controls.Add(soluong, 1, 3);
+            tableLayoutPanel2.Controls.Add(cbodanhmuc, 1, 4);
+            tableLayoutPanel2.Controls.Add(txtSoLuong, 1, 3);
             tableLayoutPanel2.Controls.Add(label4, 0, 3);
-            tableLayoutPanel2.Controls.Add(gia, 1, 2);
+            tableLayoutPanel2.Controls.Add(txtDonGia, 1, 2);
             tableLayoutPanel2.Controls.Add(label3, 0, 2);
-            tableLayoutPanel2.Controls.Add(ten, 1, 1);
+            tableLayoutPanel2.Controls.Add(txtTenSP, 1, 1);
             tableLayoutPanel2.Controls.Add(label2, 0, 1);
-            tableLayoutPanel2.Controls.Add(ma, 1, 0);
+            tableLayoutPanel2.Controls.Add(txtMaSP, 1, 0);
             tableLayoutPanel2.Controls.Add(label6, 0, 5);
             tableLayoutPanel2.Controls.Add(label1, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
@@ -143,18 +143,17 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel2.Size = new Size(290, 264);
             tableLayoutPanel2.TabIndex = 0;
             // 
-            // nhacungcap
+            // cbonhacungcap
             // 
-            nhacungcap.Dock = DockStyle.Fill;
-            nhacungcap.FormattingEnabled = true;
-            nhacungcap.Location = new Point(94, 223);
-            nhacungcap.Name = "nhacungcap";
-            nhacungcap.Size = new Size(193, 27);
-            nhacungcap.TabIndex = 9;
+            cbonhacungcap.Dock = DockStyle.Fill;
+            cbonhacungcap.FormattingEnabled = true;
+            cbonhacungcap.Location = new Point(94, 223);
+            cbonhacungcap.Name = "cbonhacungcap";
+            cbonhacungcap.Size = new Size(193, 27);
+            cbonhacungcap.TabIndex = 21;
             // 
             // label5
             // 
@@ -167,22 +166,22 @@
             label5.Text = "Danh mục";
             label5.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // danhmuc
+            // cbodanhmuc
             // 
-            danhmuc.Dock = DockStyle.Fill;
-            danhmuc.FormattingEnabled = true;
-            danhmuc.Location = new Point(94, 179);
-            danhmuc.Name = "danhmuc";
-            danhmuc.Size = new Size(193, 27);
-            danhmuc.TabIndex = 10;
+            cbodanhmuc.Dock = DockStyle.Fill;
+            cbodanhmuc.FormattingEnabled = true;
+            cbodanhmuc.Location = new Point(94, 179);
+            cbodanhmuc.Name = "cbodanhmuc";
+            cbodanhmuc.Size = new Size(193, 27);
+            cbodanhmuc.TabIndex = 10;
             // 
-            // soluong
+            // txtSoLuong
             // 
-            soluong.Dock = DockStyle.Fill;
-            soluong.Location = new Point(94, 135);
-            soluong.Name = "soluong";
-            soluong.Size = new Size(193, 26);
-            soluong.TabIndex = 11;
+            txtSoLuong.Dock = DockStyle.Fill;
+            txtSoLuong.Location = new Point(94, 135);
+            txtSoLuong.Name = "txtSoLuong";
+            txtSoLuong.Size = new Size(193, 26);
+            txtSoLuong.TabIndex = 11;
             // 
             // label4
             // 
@@ -195,13 +194,13 @@
             label4.Text = "Số lượng";
             label4.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // gia
+            // txtDonGia
             // 
-            gia.Dock = DockStyle.Fill;
-            gia.Location = new Point(94, 91);
-            gia.Name = "gia";
-            gia.Size = new Size(193, 26);
-            gia.TabIndex = 12;
+            txtDonGia.Dock = DockStyle.Fill;
+            txtDonGia.Location = new Point(94, 91);
+            txtDonGia.Name = "txtDonGia";
+            txtDonGia.Size = new Size(193, 26);
+            txtDonGia.TabIndex = 12;
             // 
             // label3
             // 
@@ -214,13 +213,13 @@
             label3.Text = "Đơn giá";
             label3.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // ten
+            // txtTenSP
             // 
-            ten.Dock = DockStyle.Fill;
-            ten.Location = new Point(94, 47);
-            ten.Name = "ten";
-            ten.Size = new Size(193, 26);
-            ten.TabIndex = 8;
+            txtTenSP.Dock = DockStyle.Fill;
+            txtTenSP.Location = new Point(94, 47);
+            txtTenSP.Name = "txtTenSP";
+            txtTenSP.Size = new Size(193, 26);
+            txtTenSP.TabIndex = 8;
             // 
             // label2
             // 
@@ -233,13 +232,13 @@
             label2.Text = "Tên";
             label2.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // ma
+            // txtMaSP
             // 
-            ma.Dock = DockStyle.Fill;
-            ma.Location = new Point(94, 3);
-            ma.Name = "ma";
-            ma.Size = new Size(193, 26);
-            ma.TabIndex = 7;
+            txtMaSP.Dock = DockStyle.Fill;
+            txtMaSP.Location = new Point(94, 3);
+            txtMaSP.Name = "txtMaSP";
+            txtMaSP.Size = new Size(193, 26);
+            txtMaSP.TabIndex = 7;
             // 
             // label6
             // 
@@ -306,7 +305,7 @@
             btnadd.TabIndex = 0;
             btnadd.Text = "add";
             btnadd.UseVisualStyleBackColor = true;
-            btnadd.Click += button1_Click;
+            btnadd.Click += Insert_click;
             // 
             // btnsua
             // 
@@ -318,7 +317,7 @@
             btnsua.TabIndex = 0;
             btnsua.Text = "sua";
             btnsua.UseVisualStyleBackColor = true;
-            btnsua.Click += button1_Click;
+            btnsua.Click += Insert_click;
             // 
             // btnexit
             // 
@@ -330,7 +329,7 @@
             btnexit.TabIndex = 0;
             btnexit.Text = "exit";
             btnexit.UseVisualStyleBackColor = true;
-            btnexit.Click += button1_Click;
+            btnexit.Click += Insert_click;
             // 
             // tableLayoutPanel4
             // 
@@ -374,8 +373,8 @@
             groupBox1.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)soluong).EndInit();
-            ((System.ComponentModel.ISupportInitialize)gia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtSoLuong).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtDonGia).EndInit();
             groupBox2.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
@@ -390,16 +389,16 @@
         private GroupBox groupBox1;
         private TableLayoutPanel tableLayoutPanel2;
         private GroupBox groupBox2;
-        private ComboBox nhacungcap;
+        private ComboBox cbonhacungcap;
         private Label label5;
-        private ComboBox danhmuc;
-        private NumericUpDown soluong;
+        private ComboBox cbodanhmuc;
+        private NumericUpDown txtSoLuong;
         private Label label4;
-        private NumericUpDown gia;
+        private NumericUpDown txtDonGia;
         private Label label3;
-        private TextBox ten;
+        private TextBox txtTenSP;
         private Label label2;
-        private TextBox ma;
+        private TextBox txtMaSP;
         private Label label6;
         private Label label1;
         private TableLayoutPanel tableLayoutPanel3;

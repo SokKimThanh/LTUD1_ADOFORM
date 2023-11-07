@@ -13,12 +13,12 @@ namespace ADOForm.view
 {
     public partial class FormDanhMuc : Form
     {
-        private DanhMucController controller = null;
+        private DanhMucController controller;
 
         public FormDanhMuc()
         {
             InitializeComponent();
-            this.controller = new DanhMucController(Utils.ConnectionString);
+            controller = new DanhMucController(Utils.ConnectionString);
         }
 
         private void FormDanhMuc_Load(object sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace ADOForm.view
             try
             {
                 controller.SelectAll();
-                dataGridView1.DataSource = controller.Listgridview;
+                dataGridView1.DataSource = controller.DataSource;
             }
             catch (Exception ex)
             {
