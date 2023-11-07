@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace ADOForm
     internal class DanhMuc
     {
         private string ma, ten, ghichu;
-
+        public DanhMuc() { }
         public DanhMuc(string ma, string ten, string ghichu)
         {
             if (ma.Length != 10)
@@ -29,10 +31,10 @@ namespace ADOForm
         {
             get => ma; set
             {
-                if (ma.Length != 10)
-                {
-                    throw new Exception("ma khong hop le");
-                }
+                //if (value.Length != 10)
+                //{
+                //    throw new Exception("ma khong hop le");
+                //}
                 ma = value;
             }
         }
@@ -40,7 +42,7 @@ namespace ADOForm
         {
             get => ten; set
             {
-                if (ten.Length > 256)
+                if (value.Length > 256)
                 {
                     throw new Exception("ten khong hop le");
                 }
@@ -48,5 +50,7 @@ namespace ADOForm
             }
         }
         public string Ghichu { get => ghichu; set => ghichu = value; }
+
+        
     }
 }

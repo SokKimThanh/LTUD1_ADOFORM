@@ -14,13 +14,16 @@ namespace ADOForm
         private DanhMuc danhmuc;
         private NhaCungCap nhacungcap;
 
+        public SanPham()
+        {
+        }
 
         public SanPham(string ma, string ten, double gia = 0, int soluong = 0, DanhMuc danhmuc = null, NhaCungCap nhacungcap = null)
         {
-            if (ma.Length != 10)
-            {
-                throw new Exception("ma khong hop le");
-            }
+            //if (ma.Length != 10)
+            //{
+            //    throw new Exception("ma khong hop le");
+            //}
             if (ten.Length > 256)
             {
                 throw new Exception("ten khong hop le");
