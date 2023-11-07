@@ -28,6 +28,6 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	INSERT INTO sanpham VALUES (@ma, @ten, @gia, @soluong, @nhacungcap, @danhmuc)
+	INSERT INTO sanpham (ma,ten,gia,soluong,nhacungcap,danhmuc) VALUES (@ma, @ten, @gia, @soluong, @nhacungcap, @danhmuc)
 END
 GO

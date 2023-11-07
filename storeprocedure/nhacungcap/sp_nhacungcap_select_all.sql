@@ -9,7 +9,7 @@ GO
 -- =============================================
 -- Author:		Sok Kim Thanh
 -- Create date: <07/11/2023>
--- Description:	<Mô tả>
+-- Description:	<Nhà cung cấp select all>
 -- =============================================
 drop procedure if exists sp_nhacungcap_select_all
 go
