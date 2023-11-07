@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOForm.Conection
+namespace ADOForm.Connection
 {
     /// <summary>
     /// Lớp MyController điều khiển thao tác trên cơ sở dữ liệu dữ liệu và chiến thuật đóng mở kết nối
@@ -22,15 +22,15 @@ namespace ADOForm.Conection
         /// <summary>
         /// Property này cho phép bạn truy cập và chỉnh sửa listgridview từ các lớp kế thừa. Điều này có thể hữu ích nếu bạn muốn hiển thị dữ liệu từ cơ sở dữ liệu lên giao diện người dùng.
         /// </summary>
-        protected DataTable listgridview;
+        private DataTable listgridview;
         /// <summary>
         /// SqlDataAdapter là một đối tượng bridge giữa DataSet và SQL Server để lấy dữ liệu và lưu dữ liệu. SqlDataAdapter hoạt động với SqlCommand để lấy dữ liệu từ cơ sở dữ liệu và đổ vào DataSet. Khi bạn thực hiện các thao tác Cập nhật hoặc Xóa trên dữ liệu trong DataSet thì SqlDataAdapter sẽ thực hiện việc cập nhật này lên cơ sở dữ liệu. Property Adapter cho phép bạn truy cập và chỉnh sửa adapter từ các lớp kế thừa.
         /// </summary>
-        protected SqlDataAdapter adapter;
+        private SqlDataAdapter adapter;
         /// <summary>
         /// Đối tượng SqlCommand biểu diễn một câu lệnh SQL hoặc một thủ tục đã lưu để thực thi trên SQL Server. Các lớp kế thừa có thể sử dụng nó để thực thi các câu lệnh SQL. Property Sql cho phép bạn truy cập và chỉnh sửa sql từ các lớp kế thừa.
         /// </summary>
-        protected SqlCommand sql;
+        private SqlCommand sql;
 
 
         public MyController(string connectionString)
@@ -54,15 +54,15 @@ namespace ADOForm.Conection
         /// <summary>
         /// Property này cho phép bạn truy cập và chỉnh sửa listgridview từ các lớp kế thừa. Điều này có thể hữu ích nếu bạn muốn hiển thị dữ liệu từ cơ sở dữ liệu lên giao diện người dùng.
         /// </summary>
-        protected DataTable Listgridview { get => listgridview; set => listgridview = value; }
+        public DataTable Listgridview { get => listgridview; set => listgridview = value; }
         /// <summary>
         /// SqlDataAdapter là một đối tượng bridge giữa DataSet và SQL Server để lấy dữ liệu và lưu dữ liệu. SqlDataAdapter hoạt động với SqlCommand để lấy dữ liệu từ cơ sở dữ liệu và đổ vào DataSet. Khi bạn thực hiện các thao tác Cập nhật hoặc Xóa trên dữ liệu trong DataSet thì SqlDataAdapter sẽ thực hiện việc cập nhật này lên cơ sở dữ liệu. Property Adapter cho phép bạn truy cập và chỉnh sửa adapter từ các lớp kế thừa.
         /// </summary>
-        protected SqlDataAdapter Adapter { get => adapter; set => adapter = value; }
+        public SqlDataAdapter Adapter { get => adapter; set => adapter = value; }
         /// <summary>
         /// Đối tượng SqlCommand biểu diễn một câu lệnh SQL hoặc một thủ tục đã lưu để thực thi trên SQL Server. Các lớp kế thừa có thể sử dụng nó để thực thi các câu lệnh SQL. Property Sql cho phép bạn truy cập và chỉnh sửa sql từ các lớp kế thừa.
         /// </summary>
-        protected SqlCommand Sql { get => sql; set => sql = value; }
+        public SqlCommand Sql { get => sql; set => sql = value; }
 
         public abstract void Delete(object id);
 

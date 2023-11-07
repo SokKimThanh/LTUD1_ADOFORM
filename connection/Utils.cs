@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOForm.Conection
+namespace ADOForm.Connection
 {
     public class Utils
     {
-        private static string connectionString = "Data Source=localhost;Initial Catalog=YourDB; Integrated Security=true";
+        private static string connectionString = "Data Source=localhost;Initial Catalog=QUANLYBANHANG; Integrated Security=true";
         public static string ConnectionString
         {
             get { return connectionString; }

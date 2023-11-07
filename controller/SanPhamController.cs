@@ -7,104 +7,90 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Common;
+using ADOForm.Connection;
+using ADOForm.model;
 
 namespace ADOForm
 {
-    internal class SanPhamController : DBConfig, DBController
+    internal class SanPhamController : MyController
     {
-        SqlConnection conn = null;
-        DataTable listgridview;
-        SqlDataAdapter adapter;
-        SqlCommand sqlcmd;
 
         DanhMucController danhmucCtrl;
         NhaCungCapController nhacungcapCtrl;
 
-        public DataTable ListGridView { get => listgridview; set => listgridview = value; }
-
-        public SanPhamController()
+        public SanPhamController(string connectionString) : base(connectionString)
         {
-            // Mở kết nối
-            conn = GetConnection();
-            danhmucCtrl = new DanhMucController();
-            nhacungcapCtrl = new NhaCungCapController();
-            ListGridView = new DataTable();
+            danhmucCtrl = new DanhMucController(connectionString);
+            nhacungcapCtrl = new NhaCungCapController(connectionString);
         }
-        public bool Insert(object sender)
+
+
+
+        public override void Insert(object sender)
         {
             SanPham sanpham = (SanPham)sender;
             try
             {
-                conn.Open();
-                //======================================
-                //          Thực thi lệnh sql
-                //======================================
-                DataRowCollection dmOne = danhmucCtrl.SelectOne(sanpham.Danhmuc.Ma).Rows;
-                DataRowCollection nccOne = nhacungcapCtrl.SelectOne(sanpham.Nhacungcap.Ma).Rows;
-                 
+                SqlConnection conn = OpenConnection();
 
-                SqlCommand cmd = new SqlCommand();
+                //================================================== 
+                // Thực hiện các thao tác trên cơ sở dữ liệu tại đây
+                //==================================================
+                DataRowCollection dmOne = danhmucCtrl.SelectByID(sanpham.Danhmuc.Ma).Rows;
+                DataRowCollection nccOne = nhacungcapCtrl.SelectByID(sanpham.Nhacungcap.Ma).Rows;
+
+
                 // Thực thi câu lệnh
-                cmd.Connection = conn;
-                cmd.CommandText = "sp_sanpham_insert";
-                cmd.CommandType = CommandType.StoredProcedure;
+                Sql.Connection = conn;
+                Sql.CommandText = "sp_sanpham_insert";
+                Sql.CommandType = CommandType.StoredProcedure;
                 // tham so
                 SqlParameter ma = new SqlParameter("@ma", sanpham.Ma);
                 SqlParameter ten = new SqlParameter("@ten", sanpham.Ten);
                 SqlParameter gia = new SqlParameter("@ten", sanpham.Ten);
-                SqlParameter soluong = new SqlParameter("@ten", sanpham.Ten);
+                SqlParameter soluong = new SqlParameter("@soluong", sanpham.Soluong);
                 SqlParameter ncc = new SqlParameter("@nhacungcap", nccOne[0].Table.Columns[0]/* ma nha cung cap */.ColumnName);
                 SqlParameter dm = new SqlParameter("@danhmuc", dmOne[0].Table.Columns[0]/* ma danh muc */.ColumnName);
-                cmd.Parameters.Add(ma);
-                cmd.Parameters.Add(ten);
-                cmd.Parameters.Add(gia);
-                cmd.Parameters.Add(soluong);
-                cmd.Parameters.Add(ncc);
-                cmd.Parameters.Add(dm);
-                int result = cmd.ExecuteNonQuery();
+                Sql.Parameters.Add(ma);
+                Sql.Parameters.Add(ten);
+                Sql.Parameters.Add(gia);
+                Sql.Parameters.Add(soluong);
+                Sql.Parameters.Add(ncc);
+                Sql.Parameters.Add(dm);
+                int result = Sql.ExecuteNonQuery();
                 // kiem tra thuc thi cau lenhsql
                 if (result == 0)
                 {
-                    MessageBox.Show("Them thanh cong");
-                    return false;
+                    MessageBox.Show("Thêm không thành công");
+
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return false;
+
             }
             finally
             {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
+                CloseConnection();
             }
-            return true;
-        }
-        public bool Update(object table_name)
-        {
-            throw new NotImplementedException();
-        }
-        public bool Delete(object id)
-        {
-            throw new NotImplementedException();
         }
 
-        public DataTable Select()
+        public override void SelectAll()
         {
 
             try
             {
-                // Mở kết nối
-                conn.Open();
-                sqlcmd = new SqlCommand();
-                sqlcmd.Connection = conn;
-                sqlcmd.CommandText = "sp_sanpham_select";
-                sqlcmd.CommandType = CommandType.StoredProcedure;
-                adapter = new SqlDataAdapter(sqlcmd);
-                adapter.Fill(listgridview);
+                SqlConnection conn = OpenConnection();
+                // thực thi câu lệnh
+                Sql = new SqlCommand();
+                Sql.Connection = conn;
+                Sql.CommandText = "sp_sanpham_select_all";
+                Sql.CommandType = CommandType.StoredProcedure;
+                Adapter = new SqlDataAdapter(Sql);
+                Adapter.Fill(Listgridview);
+
             }
             catch (Exception ex)
             {
@@ -112,27 +98,23 @@ namespace ADOForm
             }
             finally
             {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
+                CloseConnection();
             }
-            return listgridview;
+
         }
 
-
-        public DataTable SelectOne(object id)
+        public override DataTable SelectByID(object id)
         {
             try
             {
                 // Mở kết nối
-                conn.Open();
-                sqlcmd = new SqlCommand();
-                sqlcmd.Connection = conn;
-                sqlcmd.CommandText = "sp_sanpham_selectone";
-                sqlcmd.CommandType = CommandType.StoredProcedure;
-                adapter = new SqlDataAdapter(sqlcmd);
-                adapter.Fill(listgridview);
+                SqlConnection conn = OpenConnection();
+                Sql = new SqlCommand();
+                Sql.Connection = conn;
+                Sql.CommandText = "sp_sanpham_selectone";
+                Sql.CommandType = CommandType.StoredProcedure;
+                Adapter = new SqlDataAdapter(Sql);
+                Adapter.Fill(Listgridview);
             }
             catch (Exception ex)
             {
@@ -140,14 +122,48 @@ namespace ADOForm
             }
             finally
             {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
+                CloseConnection();
             }
-            return listgridview;
+            return Listgridview;
         }
 
+        public override void Update(object sender)
+        {
+            try
+            {
+                // Mở kết nối
+                SanPham sanpham = (SanPham)sender;
 
+                // Mở kết nối
+                SqlConnection conn = OpenConnection();
+
+                // Tạo một đối tượng SqlCommand
+                Sql = new SqlCommand("sp_sanpham_update", conn);
+                Sql.CommandType = CommandType.StoredProcedure;
+
+                // Thêm tham số vào SqlCommand
+                Sql.Parameters.AddWithValue("@ma", sanpham.Ma);
+                Sql.Parameters.AddWithValue("@ten", sanpham.Ten);
+                Sql.Parameters.AddWithValue("@gia", sanpham.Gia);
+                Sql.Parameters.AddWithValue("@soluong", sanpham.Soluong);
+                Sql.Parameters.AddWithValue("@danhmuc", sanpham.Danhmuc);
+                Sql.Parameters.AddWithValue("@nhacungcap", sanpham.Nhacungcap);
+
+                // Thực thi SqlCommand
+                Sql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        public override void Delete(object id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

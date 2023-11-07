@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ADOForm.Connection;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,136 +9,88 @@ using System.Threading.Tasks;
 
 namespace ADOForm
 {
-    internal class DanhMucController : DBConfig, DBController
+    internal class DanhMucController : MyController
     {
-        SqlConnection conn = null;
-        DataTable listgridview;
-        SqlDataAdapter adapter;
-        SqlCommand sqlcmd;
 
-        public DataTable ListGridView { get => listgridview; set => listgridview = value; }
+        public DanhMucController(string connectionString) : base(connectionString)
+        {
 
-        public DanhMucController()
+        }
+
+        public override void Delete(object id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Insert(object sender)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SelectAll()
+        {
+            try
+            {
+                // Mở kết nối
+                SqlConnection conn = OpenConnection();
+
+                // thực hiện các thao tác trên cơ sở dữ liệu
+                Sql = new SqlCommand("sp_danhmuc_select_all", conn);
+                Sql.CommandType = CommandType.StoredProcedure;
+
+                // Tạo đối tượng SqlDataAdapter
+                Adapter = new SqlDataAdapter(Sql);
+
+                // Tạo một đối tượng Database để lưu trữ dữ liệu
+                Listgridview = new DataTable();
+
+                // đổ dữ liệu vào DataTable
+                Adapter.Fill(Listgridview);
+
+                //đóng kết nối
+                CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public override DataTable SelectByID(object id)
         {
             // Mở kết nối
-            conn = GetConnection();
-            ListGridView = new DataTable();
+            SqlConnection conn = OpenConnection();
+
+            // Tạo một đối tượng SqlCommand
+            Sql = new SqlCommand("sp_danhmuc_select_one", conn);
+            Sql.CommandType = CommandType.StoredProcedure;
+
+            // Thêm tham số vào SqlCommand
+            Sql.Parameters.AddWithValue("@ma", id);
+
+            // Tạo một đối tượng SqlDataAdapter
+            Adapter = new SqlDataAdapter(Sql);
+
+            // Tạo một đối tượng DataTable để lưu trữ dữ liệu
+            Listgridview = new DataTable();
+
+            // Đổ dữ liệu vào DataTable
+            Adapter.Fill(Listgridview);
+
+            // Đóng kết nối
+            CloseConnection();
+
+            // Trả về DataTable
+            return Listgridview;
         }
-        public bool Insert(object sender)
-        {
-            DanhMuc danhmuc = (DanhMuc)sender;
-            try
-            {
-                conn.Open();
 
-                SqlCommand cmd = new SqlCommand();
-
-                // kiem tra trùng mã
-                DataTable s = SelectOne(danhmuc.Ma);
-                if (s.Rows.Count > 0)
-                {
-                    throw new Exception("trung id");
-                }
-
-
-
-                // Thực thi câu lệnh
-                cmd.Connection = conn;
-                cmd.CommandText = "sp_danhmuc_insert";
-                cmd.CommandType = CommandType.StoredProcedure;
-                // tham so
-                SqlParameter ma = new SqlParameter("@ma", danhmuc.Ma);
-                SqlParameter ten = new SqlParameter("@ten", danhmuc.Ten);
-                SqlParameter ghichu = new SqlParameter("@ghichu", danhmuc.Ghichu);
-
-                cmd.Parameters.Add(ma);
-                cmd.Parameters.Add(ten);
-                cmd.Parameters.Add(ghichu);
-                int result = cmd.ExecuteNonQuery();
-                // kiem tra thuc thi cau lenhsql
-                if (result == 0)
-                {
-                    MessageBox.Show("Them thanh cong");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-            return true;
-        }
-        public bool Update(object table_name)
+        public override void Update(object sender)
         {
             throw new NotImplementedException();
         }
-        public bool Delete(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataTable Select()
-        {
-            try
-            {
-                // Mở kết nối
-                conn.Open();
-                sqlcmd = new SqlCommand();
-                sqlcmd.Connection = conn;
-                sqlcmd.CommandText = "sp_danhmuc_select";
-                sqlcmd.CommandType = CommandType.StoredProcedure;
-                adapter = new SqlDataAdapter(sqlcmd);
-                adapter.Fill(listgridview);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-            return listgridview;
-        }
-
-
-        public DataTable SelectOne(object id)
-        {
-            try
-            {
-                // Mở kết nối
-                conn.Open();
-                sqlcmd = new SqlCommand();
-                sqlcmd.Connection = conn;
-                sqlcmd.CommandText = "sp_danhmuc_selectone";
-                sqlcmd.CommandType = CommandType.StoredProcedure;
-                adapter = new SqlDataAdapter(sqlcmd);
-                adapter.Fill(listgridview);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-            return listgridview;
-        }
-
     }
 }

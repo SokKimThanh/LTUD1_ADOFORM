@@ -1,4 +1,4 @@
-﻿using ADOForm.Conection;
+﻿using ADOForm.Connection;
 using ADOForm.model;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
@@ -41,7 +41,7 @@ namespace ADOForm.controller
 
         public override void Insert(object sender)
         {
-            User user = (User)sender;
+            UserAdo user = (UserAdo)sender;
             // Mở kết nối
             SqlConnection conn = OpenConnection();
 
@@ -113,7 +113,7 @@ namespace ADOForm.controller
 
         public override void Update(object sender)
         {
-            User user = (User)sender;
+            UserAdo user = (UserAdo)sender;
             // Mở kết nối
             SqlConnection conn = OpenConnection();
 

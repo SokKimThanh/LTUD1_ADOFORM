@@ -1,53 +1,79 @@
-﻿using System.Data;
+﻿using ADOForm.Connection;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace ADOForm
 {
-    internal class NhaCungCapController : DBConfig, DBController
+    public class NhaCungCapController : MyController
     {
-        SqlConnection conn = null;
-        DataTable listgridview;
-        SqlDataAdapter adapter;
-        SqlCommand sqlcmd;
 
-        DanhMucController danhmucCtrl;
-        NhaCungCapController nhacungcapCtrl;
+        public NhaCungCapController(string connectionString) : base(connectionString)
+        {
 
-        public DataTable ListGridView { get => listgridview; set => listgridview = value; }
+        }
 
-        public NhaCungCapController()
-        {
-            // Mở kết nối
-            conn = GetConnection();
-            danhmucCtrl = new DanhMucController();
-            nhacungcapCtrl = new NhaCungCapController();
-            ListGridView = new DataTable();
-        }
-        public bool Insert(object sender)
-        {
-            return false;
-        }
-        public bool Update(object table_name)
-        {
-            throw new NotImplementedException();
-        }
-        public bool Delete(object id)
+        public override void Delete(object id)
         {
             throw new NotImplementedException();
         }
 
-        public DataTable Select()
+        public override void Insert(object sender)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SelectAll()
         {
             try
             {
                 // Mở kết nối
-                conn.Open();
-                sqlcmd = new SqlCommand();
-                sqlcmd.Connection = conn;
-                sqlcmd.CommandText = "sp_nhacungcap_select";
-                sqlcmd.CommandType = CommandType.StoredProcedure;
-                adapter = new SqlDataAdapter(sqlcmd);
-                adapter.Fill(listgridview);
+                SqlConnection conn = OpenConnection();
+
+
+                // Thực hiện các thao tác trên cơ sở dữ liệu tại đây
+                Sql = new SqlCommand();
+                Sql.Connection = conn;
+                Sql.CommandText = "sp_nhacungcap_select_all";
+                Sql.CommandType = CommandType.StoredProcedure;
+                Adapter = new SqlDataAdapter(Sql);
+                Adapter.Fill(Listgridview);
+                CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+        }
+
+        public override DataTable SelectByID(object id)
+        {
+            try
+            {
+                // Mở kết nối
+                SqlConnection conn = OpenConnection();
+
+
+                // Thực hiện các thao tác trên cơ sở dữ liệu tại đây
+                Sql = new SqlCommand();
+                Sql.Connection = conn;
+                Sql.CommandText = "sp_nhacungcap_select_one";
+                Sql.CommandType = CommandType.StoredProcedure;
+
+                // bind_param
+                SqlParameter ma = new SqlParameter("@ma", id);
+                Sql.Parameters.Add(ma);
+
+
+                Adapter = new SqlDataAdapter(Sql);
+                Adapter.Fill(Listgridview);
+
+
+                dbConnection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -55,40 +81,14 @@ namespace ADOForm
             }
             finally
             {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
+                CloseConnection();
             }
-            return listgridview;
+            return Listgridview;
         }
 
-
-        public DataTable SelectOne(object id)
+        public override void Update(object sender)
         {
-            try
-            {
-                // Mở kết nối
-                conn.Open();
-                sqlcmd = new SqlCommand();
-                sqlcmd.Connection = conn;
-                sqlcmd.CommandText = "sp_nhacungcap_selectone";
-                sqlcmd.CommandType = CommandType.StoredProcedure;
-                adapter = new SqlDataAdapter(sqlcmd);
-                adapter.Fill(listgridview);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-            return listgridview;
+            throw new NotImplementedException();
         }
     }
 }

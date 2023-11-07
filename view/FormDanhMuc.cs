@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ADOForm.Connection;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,28 +13,37 @@ namespace ADOForm.view
 {
     public partial class FormDanhMuc : Form
     {
-        DanhMucController controller = new DanhMucController();
+        private DanhMucController controller = null;
 
         public FormDanhMuc()
         {
             InitializeComponent();
+            this.controller = new DanhMucController(Utils.ConnectionString);
         }
 
         private void FormDanhMuc_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = controller.Select();
+            try
+            {
+                controller.SelectAll();
+                dataGridView1.DataSource = controller.Listgridview;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnInsert_Click(object sender, EventArgs e)
         {
             try
             {
                 controller.Insert(new DanhMuc(ma.Text, ten.Text, ghichu.Text));
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
         }
     }
 }

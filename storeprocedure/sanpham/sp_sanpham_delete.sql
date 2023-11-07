@@ -25,6 +25,6 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Delete statements for procedure here
-	DELETE FROM danhmuc WHERE ma = @ma
+	DELETE FROM sanpham WHERE ma = @ma
 END
 GO

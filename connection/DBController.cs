@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADOForm.Conection
+namespace ADOForm.Connection
 {
     /// <summary>
     /// Lớp DBController là lớp định nghĩa các thao tác trên cơ sở dữ liệu

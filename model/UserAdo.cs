@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace ADOForm.model
 {
-    internal class User
+    internal class UserAdo
     {
         private string username, password, userid;
         private DateTime createdDate;
 
-        public User()
+        public UserAdo()
         {
 
         }
-        public User(string username, string password, string userid, DateTime createdDate)
+        public UserAdo(string username, string password, string userid, DateTime createdDate)
         {
             this.username = username;
             this.password = password;
