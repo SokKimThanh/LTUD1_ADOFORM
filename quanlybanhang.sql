@@ -50,8 +50,9 @@ go
 -- gia tri duy nhat
 alter table sanpham add constraint uq_ten unique(ten);
 go
-
-
+alter table nhacungcap add constraint uq_tenncc unique(ten);
+go
+ 
 
 -- insert into 
 insert into danhmuc (ma,ten,ghichu) values

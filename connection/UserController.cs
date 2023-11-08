@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
-namespace ADOForm.controller
+namespace ADOForm.connection
 {
 
     public class UserController : MyController

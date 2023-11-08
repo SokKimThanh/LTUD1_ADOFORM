@@ -12,13 +12,17 @@ namespace ADOForm
 
         public NhaCungCap(string ma = "", string ten = "", string ghichu = "")
         {
-            //if (ma.Length != 10)
-            //{
-            //    throw new Exception("mancc khong hop le");
-            //}
-            if (ten.Length > 256)
+            if (ma.Length == 0)
+            {
+                throw new Exception("mancc khong hop le");
+            }
+            if (ten.Length > 256 || ten.Length == 0)
             {
                 throw new Exception("tennhacc khong hop le");
+            }
+            if (ghichu.Length > 256 || ghichu.Length == 0)
+            {
+                throw new Exception("ghichunhacc khong hop le");
             }
             this.ma = ma;
             this.ten = ten;
