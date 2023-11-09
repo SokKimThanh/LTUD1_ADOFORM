@@ -1,12 +1,6 @@
 ﻿using ADOForm.Connection;
-using Microsoft.VisualBasic.ApplicationServices;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ADOForm
 {
@@ -20,7 +14,32 @@ namespace ADOForm
 
         public override void Delete(object id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Mở kết nối
+                SqlConnection conn = OpenConnection();
+
+                // Tạo một đối tượng SqlCommand
+                Sql = new SqlCommand("sp_danhmuc_delete", conn);
+                Sql.CommandType = CommandType.StoredProcedure;
+
+                // Thêm tham số vào SqlCommand
+                Sql.Parameters.AddWithValue("@UserId", id);
+
+                // Thực thi SqlCommand
+                Sql.ExecuteNonQuery();
+
+                // Đóng kết nối
+                CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
         }
 
         public override object FromDataRow(DataRow row)
@@ -101,7 +120,24 @@ namespace ADOForm
 
         public override void Update(object sender)
         {
-            throw new NotImplementedException();
+            NhaCungCap o = (NhaCungCap)sender;
+            // Mở kết nối
+            SqlConnection conn = OpenConnection();
+
+            // Tạo một đối tượng SqlCommand
+            Sql = new SqlCommand("sp_danhmuc_update", conn);
+            Sql.CommandType = CommandType.StoredProcedure;
+
+            // Thêm tham số vào SqlCommand
+            Sql.Parameters.AddWithValue("@ma", o.Ma);
+            Sql.Parameters.AddWithValue("@ten", o.Ten);
+            Sql.Parameters.AddWithValue("@ghichu", o.Ghichu);
+
+            // Thực thi SqlCommand
+            Sql.ExecuteNonQuery();
+
+            // Đóng kết nối
+            CloseConnection();
         }
 
     }

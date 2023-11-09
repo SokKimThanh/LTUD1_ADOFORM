@@ -1,16 +1,6 @@
-﻿using ADOForm;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.Common;
 using ADOForm.Connection;
-using ADOForm.model;
-using Microsoft.VisualBasic.ApplicationServices;
 
 namespace ADOForm
 {
