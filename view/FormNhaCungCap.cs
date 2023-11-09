@@ -1,13 +1,5 @@
 ﻿using ADOForm.controller;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace ADOForm.view
 {
@@ -20,17 +12,12 @@ namespace ADOForm.view
             controller = new NhaCungCapController(Connection.Utils.ConnectionString);
         }
 
-        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void FormNhaCungCap_Load(object sender, EventArgs e)
         {
             try
             {
                 controller.SelectAll();
-                dataGridView1.DataSource = controller.DataSource;
+                dgvNhaCungCap.DataSource = controller.DataSource;
             }
             catch (Exception ex)
             {
@@ -38,7 +25,7 @@ namespace ADOForm.view
             }
         }
 
-        private void btnThem_Click(object sender, EventArgs e)
+        private void Them_Click(object sender, EventArgs e)
         {
             try
             {
@@ -46,7 +33,7 @@ namespace ADOForm.view
                 controller.Insert(ncc);
 
                 controller.SelectAll();
-                dataGridView1.DataSource = controller.DataSource;//refresh trang
+                dgvNhaCungCap.DataSource = controller.DataSource;//refresh trang
             }
             catch (Exception ex)
             {
@@ -61,11 +48,48 @@ namespace ADOForm.view
                 controller.Delete(txtMa.Text);
 
                 controller.SelectAll();
-                dataGridView1.DataSource = controller.DataSource;//refresh trang
+                dgvNhaCungCap.DataSource = controller.DataSource;//refresh trang
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void Update_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                NhaCungCap ncc = new NhaCungCap(txtMa.Text, txtTen.Text, txtGhiChu.Text);
+
+                controller.Update(ncc);
+
+                controller.SelectAll();
+                dgvNhaCungCap.DataSource = controller.DataSource;//refresh trang
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dgvNhaCungCap_Click(object sender, EventArgs e)
+        {
+
+
+        }
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                // Lấy dòng được chọn
+                DataGridViewRow row = this.dgvNhaCungCap.Rows[e.RowIndex];
+
+                // Hiển thị thông tin lên các TextBox
+                txtMa.Text = row.Cells["ma"].Value.ToString();
+                txtTen.Text = row.Cells["ten"].Value.ToString();
+                txtGhiChu.Text = row.Cells["ghichu"].Value.ToString();
+                // ...
             }
         }
     }

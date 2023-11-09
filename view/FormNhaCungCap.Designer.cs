@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dgvNhaCungCap = new DataGridView();
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel3 = new TableLayoutPanel();
@@ -42,29 +42,34 @@
             btnThem = new Button();
             button2 = new Button();
             button3 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvNhaCungCap).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvNhaCungCap
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(322, 3);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowTemplate.Height = 28;
-            dataGridView1.Size = new Size(633, 505);
-            dataGridView1.TabIndex = 0;
+            dgvNhaCungCap.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvNhaCungCap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvNhaCungCap.Dock = DockStyle.Fill;
+            dgvNhaCungCap.Location = new Point(485, 3);
+            dgvNhaCungCap.Name = "dgvNhaCungCap";
+            dgvNhaCungCap.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dgvNhaCungCap.RowTemplate.Height = 28;
+            dgvNhaCungCap.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvNhaCungCap.Size = new Size(470, 505);
+            dgvNhaCungCap.TabIndex = 0;
+            dgvNhaCungCap.CellClick += dataGridView1_CellClick;
+            dgvNhaCungCap.Click += dgvNhaCungCap_Click;
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 66.6666641F));
-            tableLayoutPanel1.Controls.Add(dataGridView1, 1, 0);
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.3131523F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.6868477F));
+            tableLayoutPanel1.Controls.Add(dgvNhaCungCap, 1, 0);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
@@ -86,13 +91,13 @@
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
-            tableLayoutPanel2.Size = new Size(313, 505);
+            tableLayoutPanel2.Size = new Size(476, 505);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.ColumnCount = 2;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel3.Controls.Add(label1, 0, 0);
             tableLayoutPanel3.Controls.Add(label2, 0, 1);
@@ -107,9 +112,8 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel3.Size = new Size(307, 399);
+            tableLayoutPanel3.Size = new Size(470, 399);
             tableLayoutPanel3.TabIndex = 0;
-            tableLayoutPanel3.Paint += tableLayoutPanel3_Paint;
             // 
             // label1
             // 
@@ -118,7 +122,7 @@
             label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(14, 132);
+            label1.Size = new Size(99, 132);
             label1.TabIndex = 0;
             label1.Text = "Mã";
             label1.TextAlign = ContentAlignment.MiddleRight;
@@ -130,7 +134,7 @@
             label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(3, 132);
             label2.Name = "label2";
-            label2.Size = new Size(14, 132);
+            label2.Size = new Size(99, 132);
             label2.TabIndex = 1;
             label2.Text = "tên";
             label2.TextAlign = ContentAlignment.MiddleRight;
@@ -142,7 +146,7 @@
             label3.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(3, 264);
             label3.Name = "label3";
-            label3.Size = new Size(14, 135);
+            label3.Size = new Size(99, 135);
             label3.TabIndex = 2;
             label3.Text = "Ghi chú";
             label3.TextAlign = ContentAlignment.MiddleRight;
@@ -151,27 +155,27 @@
             // 
             txtMa.Dock = DockStyle.Fill;
             txtMa.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point);
-            txtMa.Location = new Point(23, 3);
+            txtMa.Location = new Point(108, 3);
             txtMa.Name = "txtMa";
-            txtMa.Size = new Size(281, 71);
+            txtMa.Size = new Size(359, 71);
             txtMa.TabIndex = 3;
             // 
             // txtTen
             // 
             txtTen.Dock = DockStyle.Fill;
             txtTen.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point);
-            txtTen.Location = new Point(23, 135);
+            txtTen.Location = new Point(108, 135);
             txtTen.Name = "txtTen";
-            txtTen.Size = new Size(281, 71);
+            txtTen.Size = new Size(359, 71);
             txtTen.TabIndex = 4;
             // 
             // txtGhiChu
             // 
             txtGhiChu.Dock = DockStyle.Fill;
             txtGhiChu.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point);
-            txtGhiChu.Location = new Point(23, 267);
+            txtGhiChu.Location = new Point(108, 267);
             txtGhiChu.Name = "txtGhiChu";
-            txtGhiChu.Size = new Size(281, 129);
+            txtGhiChu.Size = new Size(359, 129);
             txtGhiChu.TabIndex = 5;
             txtGhiChu.Text = "";
             // 
@@ -190,7 +194,7 @@
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.Size = new Size(307, 94);
+            tableLayoutPanel4.Size = new Size(470, 94);
             tableLayoutPanel4.TabIndex = 1;
             // 
             // btnThem
@@ -198,18 +202,18 @@
             btnThem.Dock = DockStyle.Fill;
             btnThem.Location = new Point(3, 3);
             btnThem.Name = "btnThem";
-            btnThem.Size = new Size(96, 88);
+            btnThem.Size = new Size(150, 88);
             btnThem.TabIndex = 0;
             btnThem.Text = "Thêm";
             btnThem.UseVisualStyleBackColor = true;
-            btnThem.Click += btnThem_Click;
+            btnThem.Click += Them_Click;
             // 
             // button2
             // 
             button2.Dock = DockStyle.Fill;
-            button2.Location = new Point(105, 3);
+            button2.Location = new Point(159, 3);
             button2.Name = "button2";
-            button2.Size = new Size(96, 88);
+            button2.Size = new Size(150, 88);
             button2.TabIndex = 1;
             button2.Text = "Xóa";
             button2.UseVisualStyleBackColor = true;
@@ -218,12 +222,13 @@
             // button3
             // 
             button3.Dock = DockStyle.Fill;
-            button3.Location = new Point(207, 3);
+            button3.Location = new Point(315, 3);
             button3.Name = "button3";
-            button3.Size = new Size(97, 88);
+            button3.Size = new Size(152, 88);
             button3.TabIndex = 2;
             button3.Text = "Sửa";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += Update_Click;
             // 
             // FormNhaCungCap
             // 
@@ -234,7 +239,7 @@
             Name = "FormNhaCungCap";
             Text = "FormNhaCungCap";
             Load += FormNhaCungCap_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvNhaCungCap).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
@@ -245,7 +250,7 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dgvNhaCungCap;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
