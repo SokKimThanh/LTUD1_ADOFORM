@@ -51,7 +51,7 @@ namespace ADOForm.connection
 
         public override void Insert(object sender)
         {
-            UserAdo user = (UserAdo)sender;
+            UserAdo o = (UserAdo)sender;
             // Mở kết nối
             SqlConnection conn = OpenConnection();
 
@@ -60,9 +60,9 @@ namespace ADOForm.connection
             Sql.CommandType = CommandType.StoredProcedure;
 
             // Thêm tham số vào SqlCommand
-            Sql.Parameters.AddWithValue("@Username", user.Username);
-            Sql.Parameters.AddWithValue("@Password", user.Password);
-            Sql.Parameters.AddWithValue("@CreatedDate", user.CreatedDate);
+            Sql.Parameters.AddWithValue("@Username", o.Username);
+            Sql.Parameters.AddWithValue("@Password", o.Password);
+            Sql.Parameters.AddWithValue("@CreatedDate", o.CreatedDate);
 
             // Thực thi SqlCommand
             Sql.ExecuteNonQuery();
@@ -123,7 +123,7 @@ namespace ADOForm.connection
 
         public override void Update(object sender)
         {
-            UserAdo user = (UserAdo)sender;
+            UserAdo o = (UserAdo)sender;
             // Mở kết nối
             SqlConnection conn = OpenConnection();
 
@@ -132,10 +132,10 @@ namespace ADOForm.connection
             Sql.CommandType = CommandType.StoredProcedure;
 
             // Thêm tham số vào SqlCommand
-            Sql.Parameters.AddWithValue("@UserId", user.Userid);
-            Sql.Parameters.AddWithValue("@Username", user.Username);
-            Sql.Parameters.AddWithValue("@Password", user.Password);
-            Sql.Parameters.AddWithValue("@CreatedDate", user.CreatedDate);
+            Sql.Parameters.AddWithValue("@UserId", o.Userid);
+            Sql.Parameters.AddWithValue("@Username", o.Username);
+            Sql.Parameters.AddWithValue("@Password", o.Password);
+            Sql.Parameters.AddWithValue("@CreatedDate", o.CreatedDate);
 
             // Thực thi SqlCommand
             Sql.ExecuteNonQuery();
