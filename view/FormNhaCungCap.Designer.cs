@@ -62,7 +62,6 @@
             dgvNhaCungCap.Size = new Size(470, 505);
             dgvNhaCungCap.TabIndex = 0;
             dgvNhaCungCap.CellClick += dataGridView1_CellClick;
-            dgvNhaCungCap.Click += dgvNhaCungCap_Click;
             // 
             // tableLayoutPanel1
             // 

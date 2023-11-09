@@ -152,24 +152,35 @@ namespace ADOForm.controller
 
         public override void Update(object sender)
         {
-            NhaCungCap o = (NhaCungCap)sender;
-            // Mở kết nối
-            SqlConnection conn = OpenConnection();
+            try
+            {
+                NhaCungCap o = (NhaCungCap)sender;
+                // Mở kết nối
+                SqlConnection conn = OpenConnection();
 
-            // Tạo một đối tượng SqlCommand
-            Sql = new SqlCommand("YourUpdateStoredProcedureName", conn);
-            Sql.CommandType = CommandType.StoredProcedure;
+                // Tạo một đối tượng SqlCommand
+                Sql = new SqlCommand("sp_nhacungcap_update", conn);
+                Sql.CommandType = CommandType.StoredProcedure;
 
-            // Thêm tham số vào SqlCommand
-            Sql.Parameters.AddWithValue("@ma", o.Ma);
-            Sql.Parameters.AddWithValue("@ten", o.Ten);
-            Sql.Parameters.AddWithValue("@ghichu", o.Ghichu);
+                // Thêm tham số vào SqlCommand
+                Sql.Parameters.AddWithValue("@ma", o.Ma);
+                Sql.Parameters.AddWithValue("@ten", o.Ten);
+                Sql.Parameters.AddWithValue("@ghichu", o.Ghichu);
 
-            // Thực thi SqlCommand
-            Sql.ExecuteNonQuery();
+                // Thực thi SqlCommand
+                Sql.ExecuteNonQuery();
 
-            // Đóng kết nối
-            CloseConnection();
+                // Đóng kết nối
+                CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
         }
     }
 }

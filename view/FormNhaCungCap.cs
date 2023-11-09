@@ -10,6 +10,7 @@ namespace ADOForm.view
         {
             InitializeComponent();
             controller = new NhaCungCapController(Connection.Utils.ConnectionString);
+            dgvNhaCungCap.ReadOnly = true; //Tất cả các cell không thể sửa
         }
 
         private void FormNhaCungCap_Load(object sender, EventArgs e)
@@ -80,17 +81,25 @@ namespace ADOForm.view
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            try
             {
-                // Lấy dòng được chọn
-                DataGridViewRow row = this.dgvNhaCungCap.Rows[e.RowIndex];
+                if (e.RowIndex >= 0)
+                {
+                    // Lấy dòng được chọn
+                    DataGridViewRow row = this.dgvNhaCungCap.Rows[e.RowIndex];
 
-                // Hiển thị thông tin lên các TextBox
-                txtMa.Text = row.Cells["ma"].Value.ToString();
-                txtTen.Text = row.Cells["ten"].Value.ToString();
-                txtGhiChu.Text = row.Cells["ghichu"].Value.ToString();
-                // ...
+                    // Hiển thị thông tin lên các TextBox
+                    txtMa.Text = row.Cells["ma"].Value.ToString();
+                    txtTen.Text = row.Cells["ten"].Value.ToString();
+                    txtGhiChu.Text = row.Cells["ghichu"].Value.ToString();
+                    // ...
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }
